@@ -1,33 +1,45 @@
 #include<iostream>
-#include<cstring>
 #include<string>
-#include<stdio.h>
-#include<bits/c++io.h>
+#include<sstream>
 using namespace std;
 
 int main(){
     int t;
     cin>>t;
     while(t--){
-        string a,b,c;
+
+        string a="",b="",c="";
         int a1,b1,c1;
         char d,e;
         cin>>a>>d>>b>>e>>c;
-        if(a.find("machula")){
-            a1 = stoi(c)- stoi(b);
+        if(a.find("machula") != string::npos){
+            stringstream num(a),num1(b),num2(c);
+            int y=0; int z=0;
+            num1>>y;
+            num2>>z;
+            a1 = z-y;
+            cout<<a1<<" + "<<y<<" = "<<z<<endl;
+
         }
-        else
-            if(b.find("machula")){
-                b1=stoi(c)-stoi(a);
+        if(b.find("machula") != string::npos){
+            stringstream num(a),num1(b),num2(c);
+            int x = 0; int z=0;
+            num >> x;
+            num2>>z;
+            b1=z-x;
+            cout<<x<<" + "<<b1<<" = "<<z<<endl;
+
             }
-            else
-                if(c.find("machula")){
-                    c1=stoi(a)+ stoi(b);
-                }
-                else{
-                    return 0;
-                }
-        cout<<a1<<d<<b1<<e<<c1;
+        if(c.find("machula") != string::npos){
+            stringstream num(a),num1(b),num2(c);
+            int x = 0;int y=0;
+            num >> x;
+            num1>>y;
+
+            c1=x+y;
+            cout<<x<<" + "<<y<<" = "<<c1<<endl;
+
+        }
 
     }
 
