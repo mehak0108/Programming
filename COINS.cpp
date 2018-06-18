@@ -12,8 +12,9 @@ int main(){
         else{
         sum = p/2 + p/3 + p/4;
 
-        cout<< max(p,sum);
+        
         }
+        cout<< max(p,sum)<<endl;
     }
 
 }
