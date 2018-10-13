@@ -1,20 +1,19 @@
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 int main(){
 
-    long long p,sum;
-    while(cin>>p){
-        //cin>> p;
-        if(p == 0){
-            cout<< p;
-        }
-        else{
-        sum = p/2 + p/3 + p/4;
+    ll n;
+    while(cin>>n){
+        if(n==0)
+        ll a[n];
 
-        
+        memset(a,0,sizeof(a));
+        for(ll i=1;i<=n;i++){
+            a[i] = max(i,a[i/2]+a[i/3]+a[i/4]);
         }
-        cout<< max(p,sum)<<endl;
+        cout<<a[n]<<endl;
     }
-
+    return 0;
 }
