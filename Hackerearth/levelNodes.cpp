@@ -11,7 +11,7 @@ void calNode(int v){
 	queue<int> q;
 	q.push(v);
 	visited[v] = true;
-	level[v]=0;
+	level[v]=1;
 	while(!q.empty()){
 		int s = q.front();
 		q.pop();
@@ -28,7 +28,7 @@ void calNode(int v){
 }
 
 int main(){
-	ONLINE_JUDGE
+	//ONLINE_JUDGE
 
 	int n,u,v,x;
 	cin>>n;
