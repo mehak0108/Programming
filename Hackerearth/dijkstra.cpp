@@ -1,61 +1,63 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define ONLINE_JUDGE  freopen("input","r",stdin); freopen("output","w",stdout);
-#define MAX 100001
-ll nodes,edges;
-vector<pair<ll,ll>> adj[MAX];
-vector<bool> visited(MAX,false);
+int n,m;
 
-void dijkstra(){
-	vector<ll> dis(MAX,2e9);
-	dis[1]=0;
-	priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-	q.push(make_pair(0,1));
+int vis[10001],dst[10001];
+#define F first
+#define S second
+#define pii pair<int,int>
+vector<pii>adj[10001];
 
-	while(!q.empty()){
-		pair<ll,ll> p = q.top();
-		q.pop();
-		ll x = p.second;
-		if(visited[x]==true)
-			continue;
-		visited[x] = true;
-		for(int i=0;i<adj[x].size();i++){
-			//pair<ll,ll> y = adj[x][i];
-			ll w = adj[x][i].first;
-			ll z = adj[x][i].second;
-
-			if(visited[z]==true)
-				continue;
-			if(!visited[z] && dis[z]>dis[x]+w){
-				dis[z] = dis[x]+w;
-				q.push(make_pair(dis[z],z));
-			}
-		}
-	}
-	for(int i=2;i<=nodes;i++)
-		cout<<dis[i]<<" ";
+void dijkstra()
+{
+    priority_queue<pii,vector<pii>,greater<pii>>pq;
+    dst[0]=0;
+    pq.push({0,0});
+    
+    while(!pq.empty())
+    {
+        auto tmp = pq.top();
+        pq.pop();
+        
+        // int dt = tmp.F;
+        int u = tmp.S;
+        
+        if(!vis[u])
+        {
+            vis[u]=1;
+            for(auto x:adj[u])
+            {
+                int v = x.F;
+                int wt = x.S;
+                if(dst[v]>dst[u]+wt)
+                {
+                    dst[v] = dst[u]+wt;
+                    pq.push({dst[v],v});
+                }
+            }
+        }
+    }
 }
 
-int main(){
-	ONLINE_JUDGE
-
-	ll x,y,w;
-	cin>>nodes>>edges;
-	for(ll i=0;i<edges;i++){
-		cin>>x>>y>>w;
-		adj[x].push_back(make_pair(w,y));
-		//adj[y].push_back(make_pair(w,x));
-
-	}
-	dijkstra();
+int main()
+{
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int x,y,w;
+        cin>>x>>y>>w;
+        x--;y--;
+        adj[x].push_back({y,w});
+    }
+    
+    for(int i=0;i<n;i++) 
+    {
+        vis[i]=0;
+        dst[i] = INT_MAX;
+    }
+    
+    dijkstra();
+        
+    for(int i=1;i<n;i++)
+        cout<<dst[i]<<" ";
 }
-
-/*
-5 5
-1 2 5
-1 3 2
-3 4 1
-1 4 6
-3 5 5
-*/
