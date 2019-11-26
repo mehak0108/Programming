@@ -1,22 +1,3 @@
-add-screen
-screen1
-12
-10
-4
-5
-8
-9
-1
-success
-add-screen
-screen2
-20
-25
-3
-4
-12
-13
-17
-18
-2
-success
+10 20 30 
+5 10 20 
+2 4 6 

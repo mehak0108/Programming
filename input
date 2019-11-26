@@ -1,3 +1,4 @@
-2
-add-screen screen1 12 10 4 5 8 9
-add-screen screen2 20 25 3 4 12 13 17 18
+3 3
+10 30 60
+15 45 95
+17 51 107
