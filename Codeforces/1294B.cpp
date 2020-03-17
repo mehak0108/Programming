@@ -1,7 +1,4 @@
 #include <bits/stdc++.h>
-// #pragma GCC optimize ("Ofast")
-// #pragma GCC target ("sse4")
-// #pragma GCC optimize ("unroll-loops")
 #define ONLINE_JUDGE  freopen("input","r",stdin); freopen("output","w",stdout);
 #define MAX 		100001
 #define ll          long long
@@ -16,3 +13,13 @@
 #define hell        1000000007
 #define endl        '\n'
 using namespace std;
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		
+	}		
+}
