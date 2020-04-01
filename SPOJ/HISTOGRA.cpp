@@ -25,24 +25,57 @@ void MOD(ll &x)
 }
 
 
-void solve()
+void solve(int n)
 {
-	
+	vi a(n);
+
+	rep(i,0,n) cin>>a[i];
+
+	stack<int> s;
+
+	ll i=0,tp,area = 0;
+	while(i<n)
+	{
+		if(s.empty() || a[s.top()]<=a[i])
+			s.push(i++);
+		else
+		{
+			tp = s.top();
+			s.pop();
+
+			area = max(area,(ll)a[tp]*((s.empty())? i:i-s.top()-1));
+		}
+
+	}
+
+	while(!s.empty())
+	{
+		tp = s.top();
+		s.pop();
+
+		area = max(area,(ll)a[tp]*((s.empty())? i:i-s.top()-1));
+	}
+	cout<<area<<endl;
 	
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(t--)
+	// cin>>t;
+	while(1)
 	{
-		solve();
+		int n;
+		cin>>n;
+
+		if(n==0) break;
+		solve(n);
+
 	}
 	return 0;
 }
