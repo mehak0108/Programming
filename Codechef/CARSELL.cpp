@@ -25,75 +25,41 @@ void MOD(ll &x)
 }
 
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+void solve()
+{
+	int n;
+	cin>>n;
 
-	stack<char>st;
-	int ct=0;
+	vector<ll> a(n);
+	rep(i,0,n) cin>>a[i];
+	
+	sort(all(a));
+	reverse(all(a));
 
-	rep(i,0,n)
+	ll ls = 0,pf=0;
+
+	for(int i=0;i<n;i++)
 	{
-		if(s[i]=='{')
-			st.push(s[i]);
-		else
-		{
-			if(st.empty()) 
-			{
-				ct++;
-				st.push('}');
-			}
-			else
-			{
-				st.pop();
-			}
-		}
+		if((a[i]-ls)>0)
+			pf = (pf%(ll)lol + (a[i]-ls)%(ll)lol)%(ll)lol;
+		ls++;
 	}
 
-	int tmp = st.size();
-
-	ct += tmp/2;
-
-	cout<<t<<". "<<ct<<endl;
-
-	
+	cout<<pf<<endl;
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/

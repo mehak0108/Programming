@@ -12,7 +12,7 @@
 #define S           second
 #define sz(x)       (int)x.size()
 #define rep(i,a,b)	for(int i=a;i<b;i++)
-#define lol         1000000007
+#define M         1000000007
 #define endl        '\n'
 #define debug(x)    cerr << #x << " = " << x << endl;
 
@@ -20,80 +20,43 @@ using namespace std;
 
 void MOD(ll &x)
 {
-	if (x >= lol) x -= lol;
-	if (x < 0) x += lol;
+	if (x >= M) x -= M;
+	if (x < 0) x += M;
 }
 
+int fxn(int b)
+{
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+	if(b<4) return 0;
+	if(b==4) return 1;
 
-	stack<char>st;
-	int ct=0;
+	return fxn(b-4) + ((b>4)?((b-4)/2)*2:0) + 1;
 
-	rep(i,0,n)
-	{
-		if(s[i]=='{')
-			st.push(s[i]);
-		else
-		{
-			if(st.empty()) 
-			{
-				ct++;
-				st.push('}');
-			}
-			else
-			{
-				st.pop();
-			}
-		}
-	}
+}
 
-	int tmp = st.size();
+void solve()
+{
+	int b;
+	cin>>b;
 
-	ct += tmp/2;
+	int ans = fxn(b);
 
-	cout<<t<<". "<<ct<<endl;
-
+	cout<<ans<<endl;	
 	
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/

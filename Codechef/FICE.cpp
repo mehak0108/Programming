@@ -12,88 +12,58 @@
 #define S           second
 #define sz(x)       (int)x.size()
 #define rep(i,a,b)	for(int i=a;i<b;i++)
-#define lol         1000000007
+#define M         1000000007
 #define endl        '\n'
 #define debug(x)    cerr << #x << " = " << x << endl;
 
 using namespace std;
 
-void MOD(ll &x)
+int n,m;
+
+void MOD(int &x)
 {
-	if (x >= lol) x -= lol;
-	if (x < 0) x += lol;
+	if (x >= m) x -= m;
+	if (x < 0) x += m;
 }
 
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+void solve()
+{
+	
+	cin>>n>>m;
 
-	stack<char>st;
-	int ct=0;
+	int dp[n+1];
+	dp[0]=0;
+	dp[1]=1;
+	dp[2]=1;
 
-	rep(i,0,n)
+	for(int i=3;i<=n;i++)
 	{
-		if(s[i]=='{')
-			st.push(s[i]);
-		else
-		{
-			if(st.empty()) 
-			{
-				ct++;
-				st.push('}');
-			}
-			else
-			{
-				st.pop();
-			}
-		}
+		dp[i] = dp[i-1] + dp[i-2];
+		// if(dp[i]>=m) dp[i] -= m;
+		MOD(dp[i]);
 	}
 
-	int tmp = st.size();
+	int vl = dp[n]*2;
+	while(vl>=m) MOD(vl);
+	// ll val = dp[];
 
-	ct += tmp/2;
-
-	cout<<t<<". "<<ct<<endl;
-
+	cout<<vl<<endl;
 	
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/

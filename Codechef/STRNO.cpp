@@ -24,76 +24,75 @@ void MOD(ll &x)
 	if (x < 0) x += lol;
 }
 
+// int isPrime[100000];
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+// void seive()
+// {
+// 	for(int i=2;i<MAX;i++) isPrime[i] = true;
 
-	stack<char>st;
-	int ct=0;
+// 	for(int i=2;i<=sqrt(MAX);i++)
+// 	{
+// 		if(isPrime[i])
+// 		{
+// 			for(int j=i*i;j<=MAX;j=j+i)
+// 			{
+// 				isPrime[j] = false;
+// 			}
+// 		}
+// 	}
+// }
 
-	rep(i,0,n)
+ll findDiv(ll x)
+{
+	// map<ll,ll> mp;
+	
+	ll ct=0,tmp=0;
+	while(x%2==0)
 	{
-		if(s[i]=='{')
-			st.push(s[i]);
-		else
+		ct++;
+		x = x/2;
+	}
+
+	for(ll i=3;i<=sqrt(x);i=i+2)
+	{
+		// ct=0;
+		while(x%i==0)
 		{
-			if(st.empty()) 
-			{
-				ct++;
-				st.push('}');
-			}
-			else
-			{
-				st.pop();
-			}
+			ct++;
+			x = x/i;
 		}
 	}
 
-	int tmp = st.size();
+	if(x>2) ct++;
 
-	ct += tmp/2;
+	return ct;
+}
 
-	cout<<t<<". "<<ct<<endl;
+void solve()
+{
+	ll x,k;
+	cin>>x>>k;
 
-	
+	ll val = findDiv(x);
+
+	if(val>=k)
+		cout<<1<<endl;
+	else
+		cout<<0<<endl;
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/

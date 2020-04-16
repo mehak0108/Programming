@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#define ONLINE_JUDGE  freopen("input","r",stdin); freopen("output","w",stdout);
+#define ONLINE_JUDGE  freopen("../input","r",stdin); freopen("../output","w",stdout);
 #define MAX 		100001
 #define ll          long long
 #define ld          long double
@@ -12,7 +12,7 @@
 #define S           second
 #define sz(x)       (int)x.size()
 #define rep(i,a,b)	for(int i=a;i<b;i++)
-#define lol         1000000007
+#define M         1000000007
 #define endl        '\n'
 #define debug(x)    cerr << #x << " = " << x << endl;
 
@@ -20,8 +20,8 @@ using namespace std;
 
 void MOD(ll &x)
 {
-	if (x >= lol) x -= lol;
-	if (x < 0) x += lol;
+	if (x >= M) x -= M;
+	if (x < 0) x += M;
 }
 
 

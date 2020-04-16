@@ -12,7 +12,7 @@
 #define S           second
 #define sz(x)       (int)x.size()
 #define rep(i,a,b)	for(int i=a;i<b;i++)
-#define lol         1000000007
+#define M         1000000007
 #define endl        '\n'
 #define debug(x)    cerr << #x << " = " << x << endl;
 
@@ -20,80 +20,65 @@ using namespace std;
 
 void MOD(ll &x)
 {
-	if (x >= lol) x -= lol;
-	if (x < 0) x += lol;
+	if (x >= M) x -= M;
+	if (x < 0) x += M;
 }
 
+ll findSum(vector<ll> &a, int n)
+{
+	ll sum=0;
+	ll ct=0;
+	unordered_map<ll,ll> mp;
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+	for(ll i=0;i<n;i++)
+	{
+		sum += a[i];
+		if(sum==1)
+			ct++;
+		if(mp.find(sum-1)!=mp.end())
+			ct += (mp[sum-1]);
+		mp[sum]++;
+	}
 
-	stack<char>st;
-	int ct=0;
+	return ct;
+}
+void solve()
+{
+	ll n;
+	cin>>n;
+
+	vector<ll> a(n);
+
+	rep(i,0,n) cin>>a[i];
 
 	rep(i,0,n)
 	{
-		if(s[i]=='{')
-			st.push(s[i]);
+		if(a[i]%4==0)
+			a[i] = 2;
+		else if(a[i]%2==0)
+			a[i] = 1;
 		else
-		{
-			if(st.empty()) 
-			{
-				ct++;
-				st.push('}');
-			}
-			else
-			{
-				st.pop();
-			}
-		}
+			a[i] = 0;
 	}
 
-	int tmp = st.size();
-
-	ct += tmp/2;
-
-	cout<<t<<". "<<ct<<endl;
-
+	// for(int i=0;i<n;i++) cout<<a[i]<<" ";
+	ll vl = ((n*(n+1))/2 - findSum(a,n));
 	
+	cout<<vl<<endl;
 }
 
 
 int main()
 {
-	ONLINE_JUDGE
+	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/

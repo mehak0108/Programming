@@ -25,37 +25,44 @@ void MOD(ll &x)
 }
 
 
-void solve(string s,int t)
-{	
-	int n = s.length();
+void solve()
+{
+	int n;
+	cin>>n;
 
-	stack<char>st;
-	int ct=0;
+	vi a(n);
 
-	rep(i,0,n)
+	for(int i=0;i<n;i++) cin>>a[i];
+
+	int dist=0,prev=0;
+	bool ans=true;
+	
+	int i=0;
+	while(a[i]!=1) i++;
+
+	prev = i;
+	i++;
+	// cout<<prev<<endl;
+	while(i<n)
 	{
-		if(s[i]=='{')
-			st.push(s[i]);
-		else
+		if(a[i]==1)
 		{
-			if(st.empty()) 
+			// cout<<i<<" ";
+			dist = i-prev;
+			// cout<<dist<<" ";
+			if(dist<6) 
 			{
-				ct++;
-				st.push('}');
+				ans = false;
+				break;
 			}
-			else
-			{
-				st.pop();
-			}
+			prev = i;
 		}
+
+		i++;
 	}
 
-	int tmp = st.size();
-
-	ct += tmp/2;
-
-	cout<<t<<". "<<ct<<endl;
-
+	if(ans) cout<<"YES"<<endl;
+	else cout<<"NO"<<endl;
 	
 }
 
@@ -67,33 +74,10 @@ int main()
 	cin.tie(0);
 	cout.tie(0);
 	int t=1;
-//	cin>>t;
-	while(1)
+	cin>>t;
+	while(t--)
 	{
-		string s;
-		cin>>s;
-
-		if(s[0]=='-') break;
-		solve(s,t);
-		t++;
+		solve();
 	}
 	return 0;
 }
-
-/*
-input:
-}{
-{}{}{}
-{{{}
-}}}}
-{{{}}}}}
----
-
-output
-1. 2
-2. 0
-3. 1
-4. 2
-5. 1
-
-*/
