@@ -18,59 +18,103 @@
 
 using namespace std;
 
-int a[MAX];
-ll pref[MAX];
 
-int l,r,m;
-int n;
+vector<int> prime{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,97};
+vector<vector<int> > A(101,vector<int>(25));
+vector<vector<int> > pref(100001,vector<int>(25));
 
-void MOD(ll &x)
+void findFactors()
 {
-	if (x >= m) x -= m;
-	if (x < 0) x += m;
+	
+	for(int i=2;i<=100;i++)
+	{
+		int cp = i;
+		for(int j=0;j<25;j++)
+		{
+			int ct=0;
+			// cout<<i<<" ";
+			while(cp!=1 && cp%prime[j]==0)
+			{
+				ct++;
+				cp /= prime[j];
+			}
+
+			A[i][j] = ct;
+		}
+	}
+}
+
+ll eval(ll base, ll exp, ll m)
+{
+	ll vl = 1;
+	base = base % m;
+
+	while(exp>0)
+	{
+		if(exp%2)
+			vl = (vl * base) % m;
+		base = ((base%m) * (base%m)) % m;
+		exp /= 2;
+	}
+	return vl;
 }
 
 void solve()
 {
+	ll m;
+	int l,r;
 	cin>>l>>r>>m;
-
 	l--;r--;
 
-	pref[0] = a[0];
-	for(int i=1;i<n;i++)
+	ll vl = 1;
+	if(l)
 	{
-		pref[i] = pref[i-1]*a[i];
-		MOD(pref[i]);
-	}
 
-	ll val;
-	if(l>0)
-	{
-		// while((pref[r]/pref[l-1])>=m) MOD(pref[r]/pref[l-1]);
-		val = (pref[r]/pref[l-1])%m;
+		for(int i=0;i<25;i++)
+		{
+			vl = (vl * eval(prime[i],pref[r][i]-pref[l-1][i],m))%m;
+		}
 	}
 	else
 	{
-		while(pref[r]>=m) MOD(pref[r]);
-		val = pref[r];
+		for(int i=0;i<25;i++)
+		{
+			vl = (vl * eval(prime[i],pref[r][i],m))%m;
+		}	
 	}
-	// val = val%m;
-	cout<<val<<endl;	
-}
 
+	cout<<vl<<endl;
+	// cout<<"ok"<<endl;
+}
 
 int main()
 {
 	// ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
+	cin.tie(NULL);
+	// cout.tie(0);
 
-	
+	findFactors();
+
+	int n;
 	cin>>n;
-
-	rep(i,0,n) cin>>a[i];
+	int a[n];
+	for(int i=0;i<n;i++) cin>>a[i];
 	
+	
+
+	for(int j=0;j<25;j++)
+		pref[0][j] = A[a[0]][j];
+	for(int i=1;i<n;i++)
+	{
+		int x = a[i];
+		
+		for(int j=0;j<25;j++)
+		{
+			pref[i][j] = pref[i-1][j] + A[x][j];
+		}	
+	}
+
 	int t=1;
 	cin>>t;
 	while(t--)
