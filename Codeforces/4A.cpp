@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ONLINE_JUDGE  freopen("../input","r",stdin); freopen("../output","w",stdout);
 
 int main(){
+    ONLINE_JUDGE
     int w;
     cin>>w;
 
